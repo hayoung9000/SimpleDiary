@@ -67,18 +67,15 @@ public class MainActivity extends AppCompatActivity {
             byte[] buf= new byte[500];
             fin.read(buf); //예외처리가 되어야한다
             diaryStr=new String(buf).trim(); //trim 앞 뒤 공백을 제거해쥼~
-            but.setText("수정");
+            but.setText("수정 하기");
+            fin.close();
         }catch (FileNotFoundException e){ //파일이 존재하지 않을 때
-            edit.setText("일기가 존재하지 않습니다. ");
+            edit.setHint("일기가 존재하지 않습니다. ");
             but.setText("새로 저장");
         } catch(IOException e){
 
         }
-        try{
-            fin.close();
-        }catch (IOException e){
-            e.printStackTrace();
-        }
+
         return diaryStr;
     }
 }
