@@ -6,6 +6,9 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity {
@@ -37,6 +40,20 @@ public class MainActivity extends AppCompatActivity {
         });
     }
     public String readDiary(String fileName){
-        return null;
+        String diaryStr=null;
+        FileInputStream fin=null;
+        try {
+              fin = openFileInput(fileName);
+            byte[] buf= new byte[500];
+            fin.read(buf); //예외처리가 되어야한다
+            diaryStr=new String(buf).trim(); //trim 앞 뒤 공백을 제거해쥼~
+            but.setText("수정");
+        }catch (FileNotFoundException e){ //파일이 존재하지 않을 때
+            edit.setText("일기가 존재하지 않습니다. ");
+            but.setText("새로 저장");
+        } catch(IOException e){
+
+        }
+        return diaryStr;
     }
 }
